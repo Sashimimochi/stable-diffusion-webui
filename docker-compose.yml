@@ -1,21 +1,21 @@
-version: '3.9'
+version: "3.9"
 
 x-base_service: &base_service
-    ports:
-      - "7860:7860"
-    volumes:
-      - &v1 ./data:/data
-      - &v2 ./output:/output
-    stop_signal: SIGINT
-    deploy:
-      resources:
-        reservations:
-          devices:
-              - driver: nvidia
-                device_ids: ['0']
-                capabilities: [gpu]
+  ports:
+    - "7860:7860"
+  volumes:
+    - &v1 ./data:/data
+    - &v2 ./output:/output
+  stop_signal: SIGINT
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            device_ids: ["0"]
+            capabilities: [gpu]
 
-name: webui-docker
+#name: webui-docker
 
 services:
   download:
@@ -47,7 +47,6 @@ services:
     environment:
       - PRELOAD=true
       - CLI_ARGS=
-
 
   sygil: &sygil
     <<: *base_service
